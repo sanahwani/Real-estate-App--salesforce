@@ -1,0 +1,69 @@
+<template>
+    <lightning-card title="Properties explorer">
+        <div class="slds-p-around_medium main-container">
+            <div class="filter-section">
+                <lightning-combobox name="filterByState" value={filterByState} label="Filter By State" options={stateOptions} onchange={filterByStateHandler}></lightning-combobox>
+                <lightning-input type="number" label="Filter By Price" onchange={filterByPriceHandler}></lightning-input>
+                <lightning-input type="text" label="Search" onkeyup={filterHandler}></lightning-input>
+                <lightning-input type="text" label="Filter By Name" onchange={filterByNameHandler}></lightning-input>
+                <!-- <lightning-combobox name="filterByCountry" value={filterByCountry} label="Filter By Country" options={countryOptions} onchange={filterByCountryHandler}></lightning-combobox> -->
+               
+                <lightning-input type="number" label="Filter By Beds" onchange={filterByBedsHandler}></lightning-input>
+                <lightning-input type="number" label="Filter By Area" onchange={filterByAreaHandler}></lightning-input>
+                <lightning-input type="number" label="Filter By Baths" onchange={filterByBathsHandler}></lightning-input>
+            </div>
+            <div class="data-section">
+                <div class="slds-grid slds-m-bottom_medium">
+                    <div class="slds-col slds-has-flexi-truncate">
+                        <h2 class="slds-text-heading_large slds-text-color_default slds-m-bottom_medium">Explore Property</h2>
+                    </div>
+                    <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                        <lightning-combobox label="Sort By Price" value={sortOrder} options={sortOptions} onchange={handleSort}></lightning-combobox>
+                    </div>
+                </div>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr>
+                            <template for:each={headings} for:item="heading">
+                                <th key={heading}>{heading}</th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={filteredData} for:item="data">
+                            <tr key={data.Id}>
+                                <td>{data.Id}</td>
+                                <td>
+                                    <div class="slds-grid">
+                                        <div class="slds-col">
+                                            <a href="javascript:void(0);" onclick={navigateToRecord} data-recordid={data.Id}>{data.Name}</a>
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning-button-menu alternative-text="Show More" icon-name="utility:down" onselect={handleMenuSelect} data-id={data.Id}>
+                                                <lightning-menu-item label="Add to Favorite" value="addToFavorite"></lightning-menu-item>
+                                            </lightning-button-menu>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="slds-p-right_medium">{data.State__c}</td>
+                                <td>{data.Country__c}</td>
+                                <td>{data.Price__c}</td>
+                                <td>{data.Beds__c}</td>
+                                <td>{data.Area__c}</td>
+                                <td>{data.Baths__c}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </lightning-card>
+</template>
+
+
+
+
+
+
+
+
